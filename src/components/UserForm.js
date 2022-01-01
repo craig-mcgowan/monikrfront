@@ -32,8 +32,9 @@ const UserForm = props => {
   };
   
   const registerUser = event => {
-    const { username, password } = formData
-    console.log(formData)
+    const newUser = formData
+    newUser.expecting = newUser.expecting === "true"
+    newUser.email = newUser.email ? newUser.email : ""
     fetch(`${url}/users`, {
        method: "post",
        headers: {
@@ -43,7 +44,7 @@ const UserForm = props => {
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
+        console.log("data")
         setGState({...gState, token: data.token})
         setFormData(nullUser)
         navigate(`/login`)
@@ -82,6 +83,8 @@ const UserForm = props => {
   
 
   
+
+  
     
     return (
       <form onSubmit={(event) => handleSubmit(event)}>
@@ -95,6 +98,7 @@ const UserForm = props => {
               name="first_name"
               onChange={handleChange}
               value={formData.first_name}
+              required
               />
             <FormField
               type="text"
@@ -102,6 +106,7 @@ const UserForm = props => {
               name="last_name"
               onChange={handleChange}
               value={formData.last_name}
+              required
               />
           </div>
           <div>
@@ -111,14 +116,15 @@ const UserForm = props => {
               name="expecting"
               label="yes"
               onChange={handleChange}
-              value="yes"
+                value={true}
+                required
               />
             <FormField
-              type="radio"
-              name="expecting"
-              label="no"
-              onChange={handleChange}
-              value="no"
+                type="radio"
+                name="expecting"
+                label="no"
+                onChange={handleChange}
+                value={false}
             />
           </div>
           <div>
@@ -142,7 +148,7 @@ const UserForm = props => {
               name="baby_gender"
               label="I don't know or I'd rather not say"
               onChange={handleChange}
-              value=""
+              value="unknown"
             />
           </div>
         </>

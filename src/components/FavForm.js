@@ -3,10 +3,11 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GlobalCtx } from "../App";
 
-const FavForm = props => {
+const FavForm = (props) => {
   /*----------------------------------
-  Variable and State
+      Variables and State
   ----------------------------------*/
+  const { btnText, toggleSidebar, getFavorites} = props
   const navigate = useNavigate()
   const nullFav = {
     name: "",
@@ -18,7 +19,10 @@ const FavForm = props => {
   const { gState, setGState } = React.useContext(GlobalCtx)
   const {url, token} = gState
 
-  const [formData, setFormData] = useState(nullFav);
+  const [formData, setFormData] = useState(props.currentFav);
+  
+  
+
   /*----------------------------------
      Functions
   ----------------------------------*/
@@ -27,29 +31,35 @@ const FavForm = props => {
   };
   
   const createFav = event => {
-    const fav = formData
-    console.log(formData)
-    fetch(`${url}/favorite`, {
+    const fav = JSON.stringify(formData)
+    
+    
+    console.log(fav)
+    fetch(`${url}/favorites/`, {
        method: "post",
        headers: {
          "Content-Type": "application/json",
          Authorization: "bearer " + token
         },
-        body: JSON.stringify({fav})
+        body: fav
       })
       .then(response => response.json())
       .then(data => {
-        navigate(`/favorite`)
+        console.log(data)
+        
       })
     }
     
     const handleSubmit = event => {
       event.preventDefault()
-      if (props.page === "Register") {
-        createFav(event)
-      } else if (props.page === "Login") {
-        console.log("wazzup")
-      }
+ //     if (props.page === "Register") {
+      createFav(event)
+      getFavorites()
+      toggleSidebar()
+      setFormData(nullFav)
+//      } else if (props.page === "Login") {
+//        console.log("wazzup")
+ //     }
     }
   
 
@@ -57,90 +67,65 @@ const FavForm = props => {
     
     return (
       <form onSubmit={(event) => handleSubmit(event)}>
-      {props.page === "Register" && (
-        <>
-          <div>
-            <p>What's Your Name?</p>
-            <FormField
-              type="text"
-              placeholder="First Name"
-              name="first_name"
-              onChange={handleChange}
-              value={formData.first_name}
-              />
-            <FormField
-              type="text"
-              placeholder="Last Name"
-              name="last_name"
-              onChange={handleChange}
-              value={formData.last_name}
-              />
-          </div>
-          <div>
-            <p>Are you expecting?</p>
-            <FormField
-              type="radio"
-              name="expecting"
-              label="yes"
-              onChange={handleChange}
-              value="yes"
-              />
-            <FormField
-              type="radio"
-              name="expecting"
-              label="no"
-              onChange={handleChange}
-              value="no"
-            />
-          </div>
-          <div>
-            <p>Do you know the gender?</p>
-            <FormField
-              type="radio"
-              name="baby_gender"
-              label="Boy"
-              onChange={handleChange}
-              value="boy"
-            />
-            <FormField
-              type="radio"
-              name="baby_gender"
-              label="Girl"
-              onChange={handleChange}
-              value="girl"
-            />
-            <FormField
-              type="radio"
-              name="baby_gender"
-              label="I don't know or I'd rather not say"
-              onChange={handleChange}
-              value=""
-            />
-          </div>
-        </>
-      )}
         <FormField
           type="text"
           onChange={handleChange}
-          value={formData.username}
-          name="username"
-          placeholder="Username"
+          value={formData.name}
+          name="name"
+          placeholder="name"
+          required
         />
         <FormField
-          type="password"
+          type="text"
           onChange={handleChange}
-          value={formData.password}
-          name="password"
-          placeholder="Password"
+          value={formData.origin}
+          name="origin"
+          placeholder="origin"
+          required
         />
-
+        <fieldset className="border-8 border-white rounded-xl bg-white" >
+        <legend>Gender</legend>
+        <FormField
+          type="radio"
+          onChange={handleChange}
+          value="Masculine"
+          name="gender"
+          label="Masculine"
+          required
+          />
+        <FormField
+          type="radio"
+          onChange={handleChange}
+          value="Feminine"
+          name="gender"
+          label="Feminine"
+          />
+        <FormField
+          type="radio"
+          onChange={handleChange}
+          value="Gender Neutral"
+          name="gender"
+          label="Gender Neutral"
+          />
+        </fieldset>
+        <br/>
+        <br/>
+        <FormField
+          type="checkbox"
+          onChange={handleChange}
+          value="top-choice"
+          name="top_choice"
+          label="Top Choice?"
+        />
+        <br />
+        <br />
         <input
           type="submit"
-          value={props.page}
+          value="submit"
           className="border-2 py-1 px-2 rounded-lg bg-blue-400 border-blue-600 text-white hover:bg-blue-600 "
         />
-    </form>
-  );
+      </form>
+    );
 }
 
 export default FavForm
