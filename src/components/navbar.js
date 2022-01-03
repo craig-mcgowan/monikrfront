@@ -39,7 +39,7 @@ const Navbar = (props) => {
 
   return (
     <header
-      className=" h-12 z-1 fixed top-0 w-full bg-gradient-to-r from-pink-500 via-purple-600
+      className=" h-12 z-30 opacity-1 fixed top-0 w-full bg-gradient-to-r from-pink-500 via-purple-600
      to-indigo-800 text-lg text-white mb-4 flex justify-between content-end shadow-md shadow-gray-500 transition-all duration-500 ease-linear group"
     >
       <Link className="flex content-end" to="/">
@@ -47,7 +47,7 @@ const Navbar = (props) => {
           monikr
         </button>
       </Link>
-      <nav className="pr-10 flex w-1/4 justify-between content-end ">
+      <nav className="pr-10 flex w-1/3 justify-around content-end ">
         {gState.token ? navBtns : loginBtns}
       </nav>
     </header>

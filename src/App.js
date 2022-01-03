@@ -36,35 +36,34 @@ function App() {
   },[])
   
   return (
-    <GlobalCtx.Provider value = {{gState, setGState}}>
+    <GlobalCtx.Provider value={{ gState, setGState }}>
       <div className="App">
         <Navbar />
-        <main className='fixed top-12 h-full w-screen'>
+        <main
+          className="absolute top-12 h-full w-full"
+        >
           <Routes>
-            <Route path="/" element={gState.token? <Home />: <h1>not logged in</h1>} />
-            <Route path="favorite" element={
-              <>
-                <Outlet/>
-              </>
-            }>
-              <Route path=""
-                element={<AllFavorites/>}
-                />
-              <Route path="new"
-                element= {<h1>New Form Here</h1>}
-                />
-              <Route path=":id"
-                element= {<SingleFavorite/>}
-              />
+            <Route
+              path="/"
+              element={gState.token ? <Home /> : <h1>not logged in</h1>}
+            />
+            <Route
+              path="favorite"
+              element={
+                <>
+                  <Outlet />
+                </>
+              }
+            >
+              <Route path="" element={<AllFavorites />} />
+              <Route path="new" element={<h1>New Form Here</h1>} />
+              <Route path=":id" element={<SingleFavorite />} />
             </Route>
-              <Route path="browse"
-                element={<Browse />}
-              />
-            <Route path="login" element={<Login/>}/>
-            <Route path="signup" element={<Register/>}/>
+            <Route path="browse" element={<Browse />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Register />} />
           </Routes>
         </main>
-
       </div>
     </GlobalCtx.Provider>
   );

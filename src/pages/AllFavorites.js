@@ -130,8 +130,8 @@ function FavoritesIndex(props) {
   return (
     <>
       <div
-        className={`transition-all duration-150 ease-linear h-full ${
-          sbWidth === "60" ? "blur-[1px] backdrop-brightness-90" : "blur-none"
+        className={`transition-all pt-4 duration-150 ease-linear h-full ${
+          sbWidth === "60" ? "blur-[1px] brightness-80 bg-cover bg-fixed" : "blur-none"
         }`}
         onClick={(e) => {
           console.log("sbWidth:", sbWidth);
@@ -141,20 +141,20 @@ function FavoritesIndex(props) {
           console.log(e);
         }}
       >
-        <h1>Favorites Index</h1>
+        <h1 className=" font-logo font-medium text-4xl  ">Favorites </h1>
         <button
           onClick={() => {
             setFormType("new")
             toggleSidebar()
           }
         }
-          className={`fixed top-14 right-4 purple-btn`}
+          className={`fixed top-5 right-4 hover:w-60 w-14 purple-btn group flex content-center h-14 justify-around bg-purple-700 duration-500 text-white`}
         >
-          Add New Favorite
+           <span className="text-2xl font-extrabold">+</span> <div className=" whitespace-nowrap self-center scale-x-0 overflow-hidden clip transition-transform group origin-right group-hover:scale-x-100 duration-2000  opacity-0 group-hover:opacity-100">Add New Favorite</div>
         </button>
         {favorites ? (
           
-          <div className="flex flex-wrap justify-center">
+          <div className=" mt-5 flex flex-wrap justify-center">
           {favorites.map((fav) => {
             return (
               <FavCard key={fav.id} favorite={fav} handleClick={openEditPane} />

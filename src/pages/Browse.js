@@ -85,7 +85,7 @@ const Browse = (props) => {
 
 
   return names ? (
-    <div className="flex ">
+    <div className="flex  ">
       {names?.map((name) => (
         <BrowseCard thisName={name} createFav={createFav}/>
       ))}
@@ -108,7 +108,7 @@ const Browse = (props) => {
       </div>
     </div>
   ) : (
-    <div className="flex justify-center w-screen">
+    <div className="flex justify-center w-screen pt-10">
       <form
         className="w-[60%]"
         onSubmit={(e) => {
