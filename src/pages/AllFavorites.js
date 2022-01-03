@@ -68,7 +68,7 @@ function FavoritesIndex(props) {
     getFavorites()
   }, [token])
 
-   const createFav = (event) => {
+   const createFav = () => {
      const fav = JSON.stringify(formData);
 
      console.log(fav);
@@ -85,11 +85,27 @@ function FavoritesIndex(props) {
          console.log(data);
        });
    };
+   const updateFav = () => {
+     console.log();
+     fetch(`${url}/favorites/${formData.id}`, {
+       method: "put",
+       headers: {
+         "Content-Type": "application/json",
+         Authorization: "bearer " + token,
+       },
+       body: JSON.stringify(formData),
+     })
+       .then((response) => response.json())
+       .then((data) => {
+         console.log(data);
+       });
+   };
   
     const handleSubmit = (event) => {
       event.preventDefault();
-      //     if (props.page === "Register") {
-      createFav(event);
+      formType === "new" ?
+        createFav() :
+        updateFav()
       getFavorites();
       toggleSidebar();
       setFormData(nullFav);
@@ -100,7 +116,7 @@ function FavoritesIndex(props) {
   
   const deleteFavorite = async (favorite) => {
     console.log(favorite)
-    const response = await fetch(`${url}/favorites/${favorite.id}/`, {
+    await fetch(`${url}/favorites/${favorite.id}/`, {
       method: "delete",
       headers: {
         Authorization: "bearer " + token, 
@@ -131,7 +147,7 @@ function FavoritesIndex(props) {
             toggleSidebar()
           }
           }
-          className={`fixed top-14 right-4`}
+          className={`fixed top-14 right-4 purple-btn`}
         >
           Add New Favorite
         </button>

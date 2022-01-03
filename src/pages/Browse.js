@@ -2,7 +2,8 @@ import React, {useState, useContext} from "react";
 import FormField from "../components/FormField";
 import origins from "../data/origins";
 import { useNavigate } from "react-router-dom";
-import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
+import BrowseCard from "../components/BrowseCard";
+
 import { GlobalCtx } from "../App";
 
 
@@ -15,6 +16,7 @@ const Browse = (props) => {
   const { gState: {url, token}, setGState } = useContext(GlobalCtx)
   
   const [names, setNames] = useState(null)
+  const [currentNames, setCurrentNames] = useState(null)
 
   const navigate = useNavigate()
 
@@ -24,15 +26,6 @@ const Browse = (props) => {
 
   const [formData, setFormData] = useState({});
 
-  const cardStyle = [
-    "transition-all fixed z-50 left-[38.5%] top-[30%]",
-    "transition-all fixed z-40 left-[39%] top-[31%]",
-    "transition-all fixed z-30 left-[39.5%] top-[32%]",
-    "transition-all fixed z-20 left-[40%] top-[33%]",
-    "transition-all fixed z-10 left-[40.5%] top-[34%]",
-    "transition-all fixed z-00 left-[41%] top-[35%]",
-  ]
-  const swipedLeft = `fixed top-[20%] -left-60 -rotate-45`;
 
   /*----------------------------------
      Functions
@@ -44,27 +37,26 @@ const Browse = (props) => {
 
   const getNames = async (e) => {
     e.preventDefault()
-    console.log(e)
     const [searchKey, language] = formData.origin.split("%%%")
     let gen
     if (formData.gender === "m") {
-       gen = "Masculine"
+      gen = "Masculine"
     } else if (formData.gender === "f") {
-       gen = "Feminine"
+      gen = "Feminine"
     } else {
-       gen = "Neutral"
+      gen = "Neutral"
     }
 
     const searchUrl = `https://www.behindthename.com/api/random.json?usage=${searchKey}&gender=${formData.gender}&number=6&key=${API_KEY}`
-    console.log("SearchUrl "+ searchUrl)
-    const response = await fetch(searchUrl, 
+    console.log("SearchUrl " + searchUrl)
+    const response = await fetch(searchUrl,
       {
         method: "get"
       }
     )
     const data = await response.json()
     console.log(data)
-    const namesArr = data.names.map(ele => {
+    const namesArr = await data.names.map(ele => {
       return { name: ele, origin: language, gender: gen }
     })
     setNames(namesArr)
@@ -94,35 +86,29 @@ const Browse = (props) => {
 
   return names ? (
     <div className="flex ">
-      
-    {
-      names.map((name, index) => {
-        
-        return (
-            <div
-              id={name.name}
-              className={cardStyle[index]}
-            >
-              <div className="border-2 border-black rounded-lg w-60 h-60 p-5    bg-white  ">
-                <p>{name.name}</p>
-                <p>{name.origin}</p>
-                <p>{name.gender}</p>
-                <button className=" bg-red-500 px-5 py-2 m-2 rounded-xl "
-                 onClick= {()=>cardStyle[index] = swipedLeft}>
-                  <FaThumbsDown />
-                </button>
-                <button className=" bg-green-500 px-5 py-2 m-2 rounded-xl ">
-                  <FaThumbsUp />
-                </button>
-              </div>
-          </div>
-        );
-      }
-      )
-    }
+      {names?.map((name) => (
+        <BrowseCard thisName={name} createFav={createFav}/>
+      ))}
+      <div className="w-60 h-60 fixed left-[40%] top-[33%] flex flex-wrap align-center">
+      <button
+        className="purple-btn w-1/2"
+        onClick={(e) => {
+          setFormData(null);
+          setNames(null);
+        }}
+        >
+        Try Another Category
+      </button>
+      <button
+        className="purple-btn"
+        onClick={(e) => getNames(e)}
+        >
+        Keep Going
+      </button>
+      </div>
     </div>
-    ) : (
-      <div className="flex justify-center w-screen">
+  ) : (
+    <div className="flex justify-center w-screen">
       <form
         className="w-[60%]"
         onSubmit={(e) => {
@@ -154,8 +140,10 @@ const Browse = (props) => {
           required
         />
         {origins.map((continent) => (
-          <details>
-            <summary>{continent.continent}</summary>
+          <details className="rounded-lg open:bg-gray-100">
+            <summary className=" cursor-pointer hover:scale-110 list-none ">
+              {continent.continent}
+            </summary>
             {continent.languageArr.map(({ searchKey, language }) => (
               <FormField
                 type="radio"
