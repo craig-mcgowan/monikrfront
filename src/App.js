@@ -39,7 +39,7 @@ function App() {
     <GlobalCtx.Provider value = {{gState, setGState}}>
       <div className="App">
         <Navbar />
-        <main className='fixed top-12 pt-4 h-full w-screen'>
+        <main className='fixed top-12 h-full w-screen'>
           <Routes>
             <Route path="/" element={gState.token? <Home />: <h1>not logged in</h1>} />
             <Route path="favorite" element={

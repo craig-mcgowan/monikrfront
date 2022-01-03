@@ -32,18 +32,23 @@ const Navbar = (props) => {
     <>
       <NavBtn linkTo="/favorite" Icon={MdFavorite} label="My Favorites" />
       <NavBtn linkTo="/browse" Icon={FaBabyCarriage} label="Browse Names" />
-      <div className="self-center hover:shadow-md cursor-pointer " onClick={() => logout()}>Logout</div>
+      <div className="self-center hover:scale-110 transition-all cursor-pointer  " onClick={() => logout()}>Logout</div>
     </>
   );
 
 
   return (
-    <header className="h-12 z-1 fixed top-0 w-full bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-800 text-lg text-white mb-4 flex justify-between content-end shadow-md shadow-gray-500">
+    <header
+      className=" h-12 z-1 fixed top-0 w-full bg-gradient-to-r from-pink-500 via-purple-600
+     to-indigo-800 text-lg text-white mb-4 flex justify-between content-end shadow-md shadow-gray-500 transition-all duration-500 ease-linear group"
+    >
       <Link className="flex content-end" to="/">
-        <button>monikr</button>
+        <button className=" font-bold font-logo ease-linear hover:scale-110 ml-10 text-3xl transition">
+          monikr
+        </button>
       </Link>
       <nav className="pr-10 flex w-1/4 justify-between content-end ">
-        {gState.token ? (navBtns) : loginBtns}
+        {gState.token ? navBtns : loginBtns}
       </nav>
     </header>
   );

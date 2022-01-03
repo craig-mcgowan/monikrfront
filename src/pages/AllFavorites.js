@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { CgSpinner } from "react-icons/cg";
 import { GlobalCtx } from "../App";
 import FavCard from "../components/FavCard";
 import FavForm from "../components/FavForm";
@@ -130,7 +131,7 @@ function FavoritesIndex(props) {
     <>
       <div
         className={`transition-all duration-150 ease-linear h-full ${
-          sbWidth === "60" ? "blur-[1px]" : "blur-none"
+          sbWidth === "60" ? "blur-[1px] backdrop-brightness-90" : "blur-none"
         }`}
         onClick={(e) => {
           console.log("sbWidth:", sbWidth);
@@ -146,18 +147,24 @@ function FavoritesIndex(props) {
             setFormType("new")
             toggleSidebar()
           }
-          }
+        }
           className={`fixed top-14 right-4 purple-btn`}
         >
           Add New Favorite
         </button>
-        <div className="flex flex-wrap justify-center">
-          {favorites?.map((fav) => {
+        {favorites ? (
+          
+          <div className="flex flex-wrap justify-center">
+          {favorites.map((fav) => {
             return (
               <FavCard key={fav.id} favorite={fav} handleClick={openEditPane} />
-            );
-          })}
+              );
+            })}
         </div>
+        ) : <div className="w-screen h-screen flex justify-center content-center ">
+          <CgSpinner className="animate-spin text-blue-400 text-8xl h-30 w-30 mt-40 " />
+        </div>
+      }
       </div>
       <div
         className={`${

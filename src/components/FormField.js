@@ -7,11 +7,12 @@ const FormField = ({ name, label= "", value, type, placeholder, onChange }) => {
   switch (type) {
     case "radio" :
       inputStyling = "w-0 my-3 peer"
-      labelStyling = "px-4 py-1 mx-3 my-4 border-violet-500 border-2 rounded-xl hover:bg-violet-300 shadow-md peer-checked:bg-violet-200 bg-white"
+      labelStyling = "px-4 py-1 mx-3 my-4  shadow-md purple-btn peer-checked:bg-purple-400 peer-checked:text-white "
       break;
     case "checkbox":
       inputStyling = "w-0 my-3 peer"
-      labelStyling = "px-4 py-1 mx-3 my-4 border-violet-500 border-2 rounded-xl hover:bg-violet-300 shadow-md peer-checked:bg-violet-200 bg-white"
+      labelStyling =
+        "px-4 py-1 mx-3 my-4 purple-btn peer-checked:bg-purple-400 peer-checked:text-white";
       break;
 
   

@@ -89,9 +89,9 @@ const Browse = (props) => {
       {names?.map((name) => (
         <BrowseCard thisName={name} createFav={createFav}/>
       ))}
-      <div className="w-60 h-60 fixed left-[40%] top-[33%] flex flex-wrap align-center">
+      <div className="w-60 h-60 fixed left-[40%] top-[33%] flex flex-wrap align-center justify-around content-center">
       <button
-        className="purple-btn w-1/2"
+        className="orange-btn w-2/3 h-1/4 mb-4"
         onClick={(e) => {
           setFormData(null);
           setNames(null);
@@ -100,7 +100,7 @@ const Browse = (props) => {
         Try Another Category
       </button>
       <button
-        className="purple-btn"
+        className="green-btn w-2/3 h-1/4"
         onClick={(e) => getNames(e)}
         >
         Keep Going
