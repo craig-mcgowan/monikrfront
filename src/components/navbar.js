@@ -38,7 +38,7 @@ const Navbar = (props) => {
 
 
   return (
-    <header className="h-12 fixed w-full bg-purple-500 text-lg text-blue-50 mb-4 flex justify-between content-end">
+    <header className="h-12 z-1 fixed top-0 w-full bg-purple-500 text-lg text-white mb-4 flex justify-between content-end shadow-md shadow-purple-800">
       <Link className="flex content-end" to="/">
         <button>monikr</button>
       </Link>

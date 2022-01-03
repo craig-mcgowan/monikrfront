@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import SingleFavorite from './pages/SingleFavorite';
 import Register from './pages/Register';
+import Browse from './pages/Browse';
 
 /*----------------------------------
    Global Context
@@ -17,8 +18,6 @@ export const GlobalCtx = createContext(null)
 /*----------------------------------
    Variables
 ----------------------------------*/
-// const apiURL =
-//   `https://www.behindthename.com/api/random.json?usage=${origin}&gender=${gender}&number=6&key=${API_KEY}`;
 
 function App() {
 /*----------------------------------
@@ -40,7 +39,7 @@ function App() {
     <GlobalCtx.Provider value = {{gState, setGState}}>
       <div className="App">
         <Navbar />
-        <main className='pt-14'>
+        <main className='fixed top-12 pt-4 h-full w-screen'>
           <Routes>
             <Route path="/" element={gState.token? <Home />: <h1>not logged in</h1>} />
             <Route path="favorite" element={
@@ -56,8 +55,11 @@ function App() {
                 />
               <Route path=":id"
                 element= {<SingleFavorite/>}
-                />
+              />
             </Route>
+              <Route path="browse"
+                element={<Browse />}
+              />
             <Route path="login" element={<Login/>}/>
             <Route path="signup" element={<Register/>}/>
           </Routes>

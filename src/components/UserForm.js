@@ -35,12 +35,13 @@ const UserForm = props => {
     const newUser = formData
     newUser.expecting = newUser.expecting === "true"
     newUser.email = newUser.email ? newUser.email : ""
+    console.log(newUser)
     fetch(`${url}/users`, {
        method: "post",
        headers: {
          "Content-Type": "application/json"
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(newUser)
       })
       .then(response => response.json())
       .then(data => {
@@ -81,11 +82,9 @@ const UserForm = props => {
       }
     }
   
-
-  
-
-  
-    
+    /*----------------------------------
+      Returned JSX
+    ----------------------------------*/
     return (
       <form onSubmit={(event) => handleSubmit(event)}>
       {props.page === "Register" && (
