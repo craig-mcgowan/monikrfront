@@ -109,12 +109,15 @@ const Browse = (props) => {
     </div>
   ) : (
     <div className="flex justify-center w-screen pt-10">
-      <form
+      <h1>Choose Your Your Categories to Start Browsing</h1>
+        <form
         className="w-[60%]"
         onSubmit={(e) => {
           getNames(e);
         }}
-      >
+        >
+        <fieldset>
+        <legend>Gender</legend>    
         <FormField
           type="radio"
           onChange={handleChange}
@@ -122,7 +125,7 @@ const Browse = (props) => {
           name="gender"
           label="Masculine"
           required
-        />
+          />
         <FormField
           type="radio"
           onChange={handleChange}
@@ -130,7 +133,7 @@ const Browse = (props) => {
           name="gender"
           label="Feminine"
           required
-        />
+          />
         <FormField
           type="radio"
           onChange={handleChange}
@@ -138,7 +141,8 @@ const Browse = (props) => {
           name="gender"
           label="Neutral"
           required
-        />
+          />
+          </fieldset>
         {origins.map((continent) => (
           <details className="rounded-lg open:bg-gray-100">
             <summary className=" cursor-pointer hover:scale-110 list-none ">

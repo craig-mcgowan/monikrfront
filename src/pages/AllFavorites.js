@@ -18,7 +18,7 @@ function FavoritesIndex(props) {
   const [favorites, setFavorites] = useState(null);
 
   // sidebar visibility state
-  const [sbWidth, setSbWidth] = useState("0")
+  const [sbVisible, setSbVisible] = useState(false)
 
   const nullFav = {
     name: "",
@@ -48,13 +48,13 @@ function FavoritesIndex(props) {
   };
 
   const toggleSidebar = (event) => {
-    setSbWidth(sbWidth==="0" ? "60" : "0") 
+    setSbVisible(!sbVisible) 
   };
   
   const openEditPane = (targetFav) => {
     setFormData(targetFav)
     setFormType("update")
-    setSbWidth("60")
+    setSbVisible(true)
     console.log(formData)
     
   }
@@ -131,11 +131,11 @@ function FavoritesIndex(props) {
     <>
       <div
         className={`transition-all pt-4 duration-150 ease-linear h-full ${
-          sbWidth === "60" ? "blur-[1px] brightness-80 bg-cover bg-fixed" : "blur-none"
+          sbVisible? "blur-[1px] brightness-80 bg-cover bg-fixed" : "blur-none"
         }`}
         onClick={(e) => {
-          console.log("sbWidth:", sbWidth);
-          if (sbWidth === "60") {
+          console.log("sbVisible:", sbVisible);
+          if (sbVisible) {
             toggleSidebar();
           }
           console.log(e);
@@ -144,32 +144,42 @@ function FavoritesIndex(props) {
         <h1 className=" font-logo font-medium text-4xl  ">Favorites </h1>
         <button
           onClick={() => {
+            setFormData(nullFav)
             setFormType("new")
             toggleSidebar()
           }
         }
-          className={`fixed top-5 right-4 hover:w-60 w-14 purple-btn group flex content-center h-14 justify-around bg-purple-700 duration-500 text-white`}
+          className={`fixed top-5 right-4 hover:w-48 w-14 purple-btn group flex content-center h-14 justify-around bg-purple-700 duration-500 text-white`}
         >
            <span className="text-2xl font-extrabold">+</span> <div className=" whitespace-nowrap self-center scale-x-0 overflow-hidden clip transition-transform group origin-right group-hover:scale-x-100 duration-2000  opacity-0 group-hover:opacity-100">Add New Favorite</div>
         </button>
         {favorites ? (
-          
-          <div className=" mt-5 flex flex-wrap justify-center">
+
+          favorites.length === 0 ? (
+            <div className="animate-bounce mt-20">
+              <h2 className = "text-4xl text-purple-700">You Don't Have Any Favorites Yet</h2>
+              <h2 className="text-2xl text-gray-700">Start Browsing to Find Your Perfect Match!</h2>
+            </div>
+          ) : (
+              
+            
+            <div className=" mt-5 flex flex-wrap justify-center">
           {favorites.map((fav) => {
             return (
               <FavCard key={fav.id} favorite={fav} handleClick={openEditPane} />
               );
             })}
         </div>
+          )
         ) : <div className="w-screen h-screen flex justify-center content-center ">
           <CgSpinner className="animate-spin text-blue-400 text-8xl h-30 w-30 mt-40 " />
         </div>
       }
       </div>
       <div
-        className={`${
-          sbWidth === "60" ? "w-60 justify-center" : "w-0"
-        } fixed  top-12 right-0 bg-gray-100  flex flex-wrap h-full transition-all duration-150 ease-linear origin-right shadow-md shadow-black `}
+      className={`${
+        sbVisible? "w-60 justify-center" : "w-0"
+      } fixed  top-12 right-0 bg-white flex flex-col flex-wrap h-full transition-all duration-150 ease-linear origin-right shadow-md shadow-black `}
       >
         <FavForm
           handleChange={handleChange}
@@ -179,10 +189,10 @@ function FavoritesIndex(props) {
           formData={formData}
           getFavorites={getFavorites}
           deleteFavorite={deleteFavorite}
-        />
+          />
       </div>
     </>
-  );
-}
-
+    );
+  }
+  
 export default FavoritesIndex;

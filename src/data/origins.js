@@ -3,10 +3,10 @@ const origins = [
     continent: "African",
     languageArr: [
       { language: "All", searchKey: "afr" },
-      { language: "Eastern African", searchKey: "key" },
-      { language: "Northern African", searchKey: "key" },
-      { language: "Southern African", searchKey: "key" },
-      { language: "Western African", searchKey: "key" },
+      { language: "Eastern African", searchKey: "afr-e" },
+      { language: "Northern African", searchKey: "afr-n" },
+      { language: "Southern African", searchKey: "afr-s" },
+      { language: "Western African", searchKey: "afr-w" },
     ]
   },
   {
