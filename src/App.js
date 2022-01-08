@@ -2,13 +2,14 @@ import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/navbar';
 import { useEffect, useState, createContext } from "react";
-import { Route, Routes, Outlet, useParams, useLocation, useNavigate } from "react-router-dom"
+import { Route, Routes, Outlet, useLocation, useNavigate } from "react-router-dom"
 import AllFavorites from './pages/AllFavorites';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import SingleFavorite from './pages/SingleFavorite';
 import Register from './pages/Register';
 import Browse from './pages/Browse';
+import Dashboard from './pages/Dashboard';
 
 /*----------------------------------
    Global Context
@@ -27,6 +28,7 @@ function App() {
     url: "https://cm-ringo-monikr-api.herokuapp.com",
     token: null
   });
+
   
   //Logged in State
   useEffect(() => {
@@ -45,7 +47,7 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={gState.token ? <Home /> : <h1>not logged in</h1>}
+              element={gState.token ? <Dashboard /> : <Home />}
             />
             <Route
               path="favorite"

@@ -39,7 +39,7 @@ const Navbar = (props) => {
 
   return (
     <header
-      className=" h-12 z-30 opacity-1 fixed top-0 w-full bg-gradient-to-r from-pink-500 via-purple-600
+      className=" h-12 z-30  fixed top-0 w-full bg-gradient-to-r from-pink-500 via-purple-600
      to-indigo-800 text-lg text-white mb-4 flex justify-between content-end shadow-md shadow-gray-500 transition-all duration-500 ease-linear group"
     >
       <Link className="flex content-end" to="/">
